@@ -1,0 +1,37 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "pdns_server",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "NIPIO_DOMAIN": "lcl.io",
+                    "NIPIO_TTL": "30"
+                }
+            },
+            "args": [
+                "--daemon=no",
+                "--disable-syslog",
+                "--write-pid=no",
+                "--module-dir=/usr/lib/x86_64-linux-gnu/pdns",
+                "--launch=pipe",
+                "--pipe-command=nipio/backend.py"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "command": "pytest",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
