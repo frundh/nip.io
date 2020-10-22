@@ -245,9 +245,12 @@ class DynamicBackend(object):
 
     def handle_invalid_ip(self, ip_address: str) -> None:
         _write('LOG', f'Invalid IP address: {ip_address}')
+        _write('LOG', f'Return fallback IP address: {self.ip_address}')
+        _write('DATA', ip_address, 'IN', 'A', self.ttl, self.id, self.ip_address)
+        self.write_name_servers(ip_address)
         _write('END')
 
-    def _get_config_filename(config_file: str) -> str:
+    def _get_config_filename(self, config_file: str) -> str:
         return os.path.join(os.path.dirname(os.path.realpath(__file__)), config_file)
 
     def _split_subdomain(self, subdomain):
