@@ -90,7 +90,7 @@ jobs:
 
       - name: Create Release
         id: create_release
-        if: ci != 'true'
+        if: env.CI != 'true'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
